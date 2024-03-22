@@ -19,10 +19,12 @@ class Sidebar {
    * */
   static initToggleButton() {
     const sidebarToggle = document.querySelector('.sidebar-toggle');
-    sidebarToggle.addEventListener('click', () => {
-      document.body.classList.toggle('sidebar-open');
-      document.body.classList.toggle('sidebar-collapse');
-    });
+    if (sidebarToggle) {
+      sidebarToggle.addEventListener('click', () => {
+        document.body.classList.toggle('sidebar-open');
+        document.body.classList.toggle('sidebar-collapse');
+      });
+    }
   }
 
   /**
@@ -33,26 +35,32 @@ class Sidebar {
    * выходу устанавливает App.setState( 'init' )
    * */
   static initAuthLinks() {
-    const loginButton = document.querySelector('.login-button');
-    const registerButton = document.querySelector('.register-button');
-    const logoutButton = document.querySelector('.logout-button');
+    const loginButton = document.querySelector('.menu-item_login');
+    const registerButton = document.querySelector('.menu-item_register');
+    const logoutButton = document.querySelector('.menu-item_logout');
 
-    loginButton.addEventListener('click', () => {
-      const loginModal = App.getModal('login');
-      loginModal.open();
-    });
-
-    registerButton.addEventListener('click', () => {
-      const registerModal = App.getModal('register');
-      registerModal.open();
-    });
-
-    logoutButton.addEventListener('click', () => {
-      User.logout((err, response) => {
-        if (response && response.success) {
-          App.setState('init');
-        }
+    if (loginButton) {
+      loginButton.addEventListener('click', () => {
+        const loginModal = App.getModal('login');
+        loginModal.open();
       });
-    });
+    }
+
+    if (registerButton) {
+      registerButton.addEventListener('click', () => {
+        const registerModal = App.getModal('register');
+        registerModal.open();
+      });
+    }
+
+    if (logoutButton) {
+      logoutButton.addEventListener('click', () => {
+        User.logout((err, response) => {
+          if (response && response.success) {
+            App.setState('init');
+          }
+        });
+      });
+    }
   }
 }
