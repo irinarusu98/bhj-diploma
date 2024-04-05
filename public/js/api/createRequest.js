@@ -55,20 +55,10 @@
 //     });
 
 
-
-// /**
-//  * Функция для отправки запросов на сервер.
-//  * @param {object} options - Объект параметров запроса.
-//  * @param {string} options.url - URL для отправки запроса.
-//  * @param {object} options.data - Данные для отправки на сервер.
-//  * @param {string} options.method - Метод запроса (по умолчанию 'GET').
-//  * @param {function} options.callback - Колбэк-функция для обработки ответа.
-//  */
 const createRequest = ({ url, data, method = 'GET', callback }) => {
     const xhr = new XMLHttpRequest(); // Создание нового объекта XMLHttpRequest
     const formData = new FormData(); // Создание объекта FormData для отправки данных в формате multipart/form-data
 
-    
     if (method === "GET") {
         url += "?"; // Добавляем в URL знак вопроса для начала строки запроса
         for (let key in data) {
@@ -82,14 +72,14 @@ const createRequest = ({ url, data, method = 'GET', callback }) => {
 
     // Отправка запроса на сервер
     try {
-        xhr.open(method, url); 
+        xhr.open(method, url);
     } catch (e) {
         callback(e); // Обрабатываем ошибку при отправке запроса
     }
 
     xhr.addEventListener("readystatechange", () => {
         if (xhr.status === 200 && xhr.readyState === 4) {
-            callback(null, JSON.parse(xhr.response)); 
+            callback(null, JSON.parse(xhr.response));
         }
     });
 };
